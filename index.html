@@ -20,7 +20,7 @@
 
         /* Premium Dark Theme Background */
         body {
-            background-color: #050508;
+            background-color: #030306;
             color: #ffffff;
             overflow-x: hidden;
             position: relative;
@@ -60,7 +60,121 @@
             pointer-events: none;
         }
 
-        /* Sound Alert Overlay (Optional Info) */
+        /* --- ATAPATTAMA STYLE SUN-EARTH-MOON SYSTEM --- */
+        .space-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Solar System Center Container */
+        .solar-system {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotateX(65deg); /* Gives a beautiful 3D angled look like TV shows */
+            transform-style: preserve-3d;
+        }
+
+        /* 1. THE SUN (මැද පවතින සූර්යයා) */
+        .sun {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #ffea00 20%, #ff6a00 60%, transparent 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 60px #ff6a00, 0 0 120px #ff0055;
+            transform: rotateX(-65deg); /* Keeps the sun spherical facing user */
+        }
+
+        /* Earth's Orbit Path (පෘථිවි කක්ෂය) */
+        .earth-orbit {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border: 2px dashed rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            animation: spinOrbit 25s linear infinite;
+            transform-style: preserve-3d;
+        }
+
+        /* 2. THE EARTH (පෘථිවිය) */
+        .earth-wrapper {
+            position: absolute;
+            top: -30px; /* Positions Earth on the orbit line */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            transform-style: preserve-3d;
+        }
+
+        .earth {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #00d2ff, #004687 70%, #001122);
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6);
+            transform: rotateX(-65deg); /* Faces the screen directly */
+        }
+
+        /* Moon's Orbit Path (චන්ද්‍ර කක්ෂය - පෘථිවිය වටා) */
+        .moon-orbit {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            animation: spinOrbit 6s linear infinite;
+        }
+
+        /* 3. THE MOON (හඳ) */
+        .moon {
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #888888 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Cosmic background stars */
+        .star-dust {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+            background-size: 550px 550px, 350px 350px;
+            background-position: 0 0, 40px 60px;
+            opacity: 0.2;
+        }
+
+        /* Rotational Animations */
+        @keyframes spinOrbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* ------------------------------------ */
+
+        /* Sound Alert Overlay */
         .audio-notice {
             position: fixed;
             top: 20px;
@@ -160,6 +274,8 @@
             padding: 100px 20px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 5;
         }
 
         .section-title {
@@ -262,6 +378,22 @@
 </head>
 <body>
 
+    <div class="space-container">
+        <div class="star-dust"></div>
+        <div class="solar-system">
+            <div class="sun"></div>
+            
+            <div class="earth-orbit">
+                <div class="earth-wrapper">
+                    <div class="earth"></div>
+                    <div class="moon-orbit">
+                        <div class="moon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="bg-glow"></div>
     <div class="bg-glow-2"></div>
 
@@ -316,7 +448,6 @@
 
         // Site eke kohe touch/click karath meka weda karanawa
         document.addEventListener('click', () => {
-            // Sound eka rewind karala nayeathutath muladi idan play wenna hadala thiyenne
             sound.currentTime = 0; 
             sound.play().catch(error => {
                 console.log("Audio play error: Browser blocked autoplay until user interaction.");
@@ -325,4 +456,4 @@
     </script>
 
 </body>
-</html>
+    </html>
